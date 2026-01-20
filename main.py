@@ -1,11 +1,21 @@
 import cv2
-import time
-import numpy as np
 
-# Create large image
-img = np.random.randint(0, 255, (4000, 4000, 3), dtype=np.uint8)
+img = cv2.imread(filename="./assets/orna.png")
+# cv2.imshow("Displayed Image", img)
+print(f"Index at [10][10]: {img[10][10]}")
 
-start = time.time()
-for _ in range(100):
-    blurred = cv2.GaussianBlur(img, (15, 15), 0)
-print(f"Time: {time.time() - start:.2f}s")
+h, w, c = img.shape
+
+out = img.copy()
+
+
+for x in range(h):
+    for y in range(w):
+        blue = out[x, y, 0]
+        green = out[x, y, 1]
+        red = out[x, y, 2]
+
+        # perform the swap...
+        out[x, y, 0] = red # r -> b
+        out[x, y, 2] = blue # b -> r
+        
